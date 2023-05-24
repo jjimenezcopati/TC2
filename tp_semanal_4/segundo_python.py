@@ -54,7 +54,7 @@ qq=1/(2*m.cos(m.pi/n))
 
 plt.close('all')        #cierro diagramas pasados
 
-#Primero ploteo mi pasa bajos prototipo
+#Primero ploteo mi pasa bajos prototipo (SIN NORMALIZACION)
 
 primero_num=[wb_pb**2]
 primero_den=[1, wb_pb/qq , wb_pb**2 ]
@@ -64,10 +64,10 @@ segundo_den=[1 , wb_pb]
 
 tf_completa = TransferFunction(np.polymul(primero_num, segundo_num),np.polymul(primero_den,segundo_den))
 
-bodePlot(tf_completa, fig_id=1, filter_description = 'Pasa bajos');
-pzmap(tf_completa, fig_id=2, filter_description = 'Pasa bajos')
+bodePlot(tf_completa, fig_id=1, filter_description = 'Pasa bajos desnormalizado');
+pzmap(tf_completa, fig_id=2, filter_description = 'Pasa bajos desnormalizado')
 
-#Luego ploteo en el mismo diagrama mi pasa altos
+#Luego ploteo en el mismo diagrama mi pasa altos   (SIN NORMALIZACION)
 
 primero_num=[1, 0, 0]
 primero_den=[1, wb_pa/qq , wb_pa**2 ]
@@ -77,8 +77,34 @@ segundo_den=[1 , wb_pa]
 
 tf_completa = TransferFunction(np.polymul(primero_num, segundo_num),np.polymul(primero_den,segundo_den))
 
-bodePlot(tf_completa, fig_id=1, filter_description = 'Pasa altos');
-pzmap(tf_completa, fig_id=2, filter_description = 'Pasa bajos')
+bodePlot(tf_completa, fig_id=1, filter_description = 'Pasa altos desnormalizado');
+pzmap(tf_completa, fig_id=2, filter_description = 'Pasa bajos desnormalizado')
+
+#Primero ploteo mi pasa bajos prototipo   (NORMALIZADO CON WP SOLAMENTE)
+
+primero_num=[(eps**(-1/n))**2]
+primero_den=[1, (eps**(-1/n))/qq , (eps**(-1/n))**2 ]
+
+segundo_num=[(eps**(-1/n))]
+segundo_den=[1 , (eps**(-1/n))]
+
+tf_completa = TransferFunction(np.polymul(primero_num, segundo_num),np.polymul(primero_den,segundo_den))
+
+bodePlot(tf_completa, fig_id=4, filter_description = 'Pasa altos normalizado en wp');
+pzmap(tf_completa, fig_id=3, filter_description = 'Pasa bajos normalizado en wp')
+
+#Luego ploteo en el mismo diagrama mi pasa altos   (NORMALIZADO CON WP SOLAMENTE))
+
+primero_num=[1, 0, 0]
+primero_den=[1, (eps**(1/n))/qq , (eps**(1/n))**2 ]
+
+segundo_num=[1, 0]
+segundo_den=[1 , (eps**(1/n))]
+
+tf_completa = TransferFunction(np.polymul(primero_num, segundo_num),np.polymul(primero_den,segundo_den))
+
+bodePlot(tf_completa, fig_id=4, filter_description = 'Pasa altos normalizado en wp');
+pzmap(tf_completa, fig_id=3, filter_description = 'Pasa bajos normalizado en wp')
 
 #FIN
 
