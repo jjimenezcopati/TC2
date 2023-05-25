@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt               #le doy un nombre (plt) al matplot
 import numpy as np                            #le doy un nombre (np) al numpy para usarlo más comodamente
 import math as m
 
-##### Librería de TC2, esta la vas a usar mucho
+##### Librería de TC2
 from pytc2.sistemas_lineales import pzmap, GroupDelay, bodePlot   #libreria de la catedra. en este caso importo diag. pol. y ceros, retardo y bode
 
 #Defino mi plantilla
@@ -40,6 +40,10 @@ eps = m.sqrt( 10**(alp_MAX/10) - 1 )
     
 n = m.log((m.pow(10, alp_min * 0.1) - 1) / (eps**2))/(2*m.log(ws_n_pb)) 
 n = m.ceil(n)
+
+print("N=",n)
+print("Epsilon=",eps)
+
 
 #Defino mis normas de butter para el prototipo pb y mi pasa altos objetivo
 wb_pb = wp*eps**(-1/n)
