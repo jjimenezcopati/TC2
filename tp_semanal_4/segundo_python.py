@@ -82,7 +82,7 @@ segundo_den=[1 , wb_pa]
 tf_completa = TransferFunction(np.polymul(primero_num, segundo_num),np.polymul(primero_den,segundo_den))
 
 bodePlot(tf_completa, fig_id=1, filter_description = 'Pasa altos desnormalizado');
-pzmap(tf_completa, fig_id=2, filter_description = 'Pasa bajos desnormalizado')
+pzmap(tf_completa, fig_id=2, filter_description = 'Pasa altos desnormalizado')
 
 #Primero ploteo mi pasa bajos prototipo   (NORMALIZADO CON WP SOLAMENTE)
 
@@ -112,7 +112,8 @@ pzmap(tf_completa, fig_id=3, filter_description = 'Pasa bajos normalizado en wp'
 
 #FIN
 
-
+#%%
+sig.cheb1ord(2*m.pi, 2*m.pi*3, 0.4, 48, True)       #devuelve el orden minimo y la w0 de un chebby con (wp, ws, alph_max, alph_min)
 
 
 
