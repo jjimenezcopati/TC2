@@ -14,25 +14,32 @@ import math as m
 
 ##### Librería de TC2
  
-import pytc2.sistemas_lineales as tc2 #libreria de la catedra. en este caso importo diag. pol. y ceros, retardo y bode
+import pytc2.sistemas_lineales as tc2 #libreria de la catedra.
 #Defino mi plantilla
 
-alp_MAX=0.5      #dB
-alp_min=24      #dB
+alp_MAX=3      #dB
+alp_min=20      #dB
     
 
 wp_n_pb=1;             # wp/wp
-ws_n_pb=2.64;
+ws_n_pb=2.16;
 
 #Se calculan epsilon y n automatico 
 
 eps = m.sqrt( 10**(alp_MAX/10) - 1 )
-[n,w0] = sig.cheb1ord(wp_n_pb, ws_n_pb, alp_MAX, alp_min, analog=True) #devuelve el orden minimo y la w0 de un chebby con (wp, ws, alph_max, alph_min, True para filtro analógico)
+[n,w0] = sig.buttord(wp_n_pb, ws_n_pb, alp_MAX, alp_min, True)
 
 print("N=",n)
 print("Epsilon=",eps)
+#%%
+num,den = sig.butter(n, 1, 'low', True)
+print("num=",num)
+print("den=",den)
 
-#Obtengo los polos de mi filtro CHEBY low pass
+tc2.pretty_print_bicuad_omegayq(num, den)
+
+#%%
+num_pbanda, den_pbanda = sig.lp2bp(T1_num, T1_den, bw = 1/Q_bp)
 
 z,p,k = sig.cheb1ap(n, alp_MAX) #obtengo los polos
 num,den=sig.zpk2tf(z, p, k)     #saco el numerador y denominador del lp
