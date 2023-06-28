@@ -29,3 +29,41 @@ fig_font_size = 16
 mpl.rcParams['figure.figsize'] = (fig_sz_x, fig_sz_y)
 mpl.rcParams['figure.dpi'] = fig_dpi
 mpl.rcParams.update({'font.size':fig_font_size})
+
+#%%
+N = 2
+wp = 1
+num_but, den = sig.butter(N,  wp, btype='low', analog=True) 
+num_but = [1/9, 0,1]
+H1 = sig.TransferFunction(num_but,den)
+tc2.pretty_print_lti(num_but,den)
+tc2.analyze_sys(H1,"Notch PB")
+#%%
+N = 1
+wp = 1
+num_but, den = sig.butter(N,  wp, btype='low', analog=True) 
+H1 = sig.TransferFunction(num_but,den)
+tc2.pretty_print_lti(num_but,den)
+tc2.analyze_sys(H1,"RC")
+#%%
+N = 3
+wp = 1
+num_but, den = sig.butter(N,  wp, btype='low', analog=True) 
+num_but= [1/9, 0,1]
+H1 = sig.TransferFunction(num_but,den)
+tc2.pretty_print_lti(num_but,den)
+tc2.analyze_sys(H1,"Filtro full_LP")
+#%%
+num_hp , den_hp = sig.lp2hp(num_but, den, 1)
+H1 = sig.TransferFunction(num_hp,den_hp)
+tc2.pretty_print_lti(num_hp,den_hp)
+tc2.analyze_sys(H1,"Filtro full_HP")
+
+
+
+
+
+
+
+
+
