@@ -1,0 +1,17 @@
+* C:\users\juani\Escritorio\TC2\tp_semanal_2\LT\tp2.asc
+XU1 0 N006 N002 opamp Aol=100K GBW=10Meg
+XU2 N001 0 N005 opamp Aol=100K GBW=10Meg
+XU3 0 N004 N003 opamp Aol=100K GBW=10Meg
+R1 N001 N007 0.1
+R2 N005 N001 3
+R3 N002 N001 1
+R4 N004 N003 1
+R5 N002 N004 1
+R6 N006 N005 1
+C1 N005 N001 1
+C2 N003 N006 1
+V1 N007 0 AC 1
+.lib opamp.sub
+.ac dec 100 0.01 1
+.backanno
+.end
