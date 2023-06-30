@@ -31,15 +31,52 @@ mpl.rcParams['figure.dpi'] = fig_dpi
 mpl.rcParams.update({'font.size':fig_font_size})
 
 #%%
+r1=0.1
+r2=3
+r3=1
+c=1
 
-num = [10]
-den=[1,1/3,1]
+K=r3/r1
+w0=1/(r3*c)
+Q=r2/r3
+
+num = [K*w0**2]
+den=[1,w0/Q,w0**2]
 H1 = sig.TransferFunction(num,den)
 tc2.pretty_print_lti(num,den)
 tc2.analyze_sys(H1,"LP")
 
+#%%
+r1=1
+r2=1.414
+r3=1
+c=1
 
+K=r3/r1
+w0=1/(r3*c)
+Q=r2/r3
 
+num = [K*w0**2]
+den=[1,w0/Q,w0**2]
+H1 = sig.TransferFunction(num,den)
+tc2.pretty_print_lti(num,den)
+tc2.analyze_sys(H1,"butter")
+
+#%%
+r1=0.1
+r2=3
+r3=1
+c=1
+
+K=r2/r1
+w0=1/(r3*c)
+Q=r2/r3
+
+num = [K*w0/Q, 0]
+den=[1,w0/Q,w0**2]
+H1 = sig.TransferFunction(num,den)
+tc2.pretty_print_lti(num,den)
+tc2.analyze_sys(H1,"BP")
 
 
 
