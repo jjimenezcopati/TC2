@@ -31,14 +31,19 @@ mpl.rcParams['figure.dpi'] = fig_dpi
 mpl.rcParams.update({'font.size':fig_font_size})
 
 #%%
-N=3
 wp=1
+ws=2
+a_max=1
+a_min=12
 
-
-num, den = sig.butter(N,  wp, btype='low', analog=True) 
+N,wn=sig.buttord(wp, ws, a_max, a_min, True)
+num, den = sig.butter(N,  wn, btype='low', analog=True) 
+print("Orden: ",N)
 
 H1 = sig.TransferFunction(num,den)
-tc2.pretty_print_lti(num,den)
+sos = tc2.tf2sos_analog(num, den)
+
+tc2.pretty_print_SOS(sos,'omegayq')
 tc2.analyze_sys(H1,"LP")
 
 #%%
