@@ -1,0 +1,18 @@
+* C:\users\juani\Escritorio\TC2\tp_lab\LT\HP.asc
+XU1 N005 N008 N001 opamp Aol=100K GBW=10Meg
+XU2 N002 0 N003 opamp Aol=100K GBW=10Meg
+XU3 N004 0 N006 opamp Aol=100K GBW=10Meg
+R1 N001 N005 50k
+C1 N003 N002 1n
+C2 N006 N004 1n
+R2 N006 N005 50k
+R3 N002 N001 36.34k
+R4 N004 N003 36.34k
+R5 N008 0 817.5k
+R6 N008 N007 58.76k
+R7 N003 N008 50k
+V1 N007 0 AC 1
+.lib opamp.sub
+.ac dec 100 1000 10k
+.backanno
+.end
