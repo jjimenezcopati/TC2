@@ -58,7 +58,7 @@ sos = sig.tf2sos(num , den , analog=True)   #lo separo en "second order sistems"
 
 
 tc2.pretty_print_SOS(sos)
-%matplotlib qt5
+
 
 plt.close('all') 
 
