@@ -98,8 +98,11 @@ tc2.analyze_sys(H1)
 #%%
 
 data = pd.read_csv('MODULO.csv', delimiter=',')
-print(datos)
+print(data)
 
+data_frec = data['Frec']
+print(data_frec)
+#print(data['Frec'])
 
 
 
