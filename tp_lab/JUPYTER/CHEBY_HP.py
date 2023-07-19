@@ -97,13 +97,38 @@ tc2.analyze_sys(H1)
 
 #%%
 
-data = pd.read_csv('MODULO.csv', delimiter=',')
-print(data)
+#Extraigo los datos del archivo que me da el analizador
 
-data_frec = data['Frec']
-print(data_frec)
-#print(data['Frec'])
+data1 = pd.read_csv('MODULO.csv', delimiter=',')
+data2 = pd.read_csv('FASE.csv', delimiter=',')
 
+data1_frec = data1['Frec']
+data1_mod = data1['Volt']
+
+data2_frec = data2['Frec']
+data2_fase = data2['Fase']
+
+fig, (ax1,ax2) = plt.subplots(2, 1, sharex=True)
+
+markers_on = [4600]
+
+ax1.semilogx(data1_frec, data1_mod)
+ax1.grid(True)
+ax1.minorticks_on()
+# Customize the major grid
+ax1.grid(which='major', linestyle='-', linewidth='0.5', color='red')
+# Customize the minor grid
+ax1.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
+
+
+
+ax2.semilogx(data2_frec, data2_fase)
+ax2.grid(True)
+ax2.minorticks_on()
+# Customize the major grid
+ax2.grid(which='major', linestyle='-', linewidth='0.5', color='red')
+# Customize the minor grid
+ax2.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
 
 
 
