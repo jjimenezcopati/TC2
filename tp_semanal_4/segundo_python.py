@@ -60,6 +60,7 @@ plt.close('all')        #cierro diagramas pasados
 
 #Primero ploteo mi pasa bajos prototipo (SIN NORMALIZACION)
 
+
 primero_num=[wb_pb**2]
 primero_den=[1, wb_pb/qq , wb_pb**2 ]
 
