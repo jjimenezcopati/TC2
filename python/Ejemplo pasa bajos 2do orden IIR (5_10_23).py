@@ -64,11 +64,12 @@ for this_fs in allfs:
     k_bilineal = 2*this_fs; 
     # con prewarp
     #k_bilineal = ww/np.tan(ww/2/this_fs); 
-
+    k_bilineal=2*20/(4*np.tan(20/k_bilineal))
+    
     thiz_tz = sp.simplify(sp.expand(Tfd.subs({K:k_bilineal, Q:QQ, W0:ww})))
     
     num, den = sp.fraction(thiz_tz)
-
+    
     num = sp.Poly(num,Z)
     den = sp.Poly(den,Z)
 

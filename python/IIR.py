@@ -31,13 +31,17 @@ my_af = tc2.TransferFunction(num,den)
 
 
 #Creo los sistemas digitales con diferentes fs
-for n in [3,10,100]:
+for n in [30,50,100]:
     
-    fs=w0*n/2/np.pi
-    k=fs*2
-    numz , denz = sig.bilinear(num, den, fs=k) 
+    fs= n * w0/2/np.pi#    Frecuencia de muestreo a partir de múltiplos de f0
+    k_bilineal=fs*2     # La k que se usará para la aplicacion de la bilineal sobre el filtro analog
     
-    my_df = sig.TransferFunction(numz,denz, dt = 1/fs)
+    w_prew=w0        #   w a la que quiero hacer prewarp de ser requerido
+    k_bilineal=2*w_prew/(4*np.tan(w_prew/k_bilineal))# Nueva K bilineal que usaré si quiero hacer prewarp
+    
+    numz , denz = sig.bilinear(num, den, fs=k_bilineal) #La k solo la uso para esta conversión. No es mi nueva fs!!!
+    
+    my_df = sig.TransferFunction(numz,denz, dt = 1/fs)#Uso la fs original y que sigue rigiendo en mi sistema
     allsys+=[my_df]
     descripciones+=['Fs = W0 * %d'% n]
     
@@ -50,10 +54,10 @@ for n in [3,10,100]:
 #tc2.analyze_sys(allsys, descripciones, xaxis="norm")
 
 #       Frecuencias originales. Sin normalizar. Cortan en fs/2 (con xaxis="frec") o en ws/2 (xaxis="omega")
-tc2.analyze_sys(allsys, descripciones)  #Puede observarse que el más fiel al analógico es el de mayor fs
+tc2.analyze_sys(allsys, descripciones, xaxis="omega")  #Puede observarse que el más fiel al analógico es el de mayor fs
 
 #       Gráfico del analógico original
-tc2.bodePlot(my_af,'Analógico')
+tc2.bodePlot(my_af,'Analógico',xaxis="omega")
 
 #Para hacer la comparativa entre analógico y digital
 #allsys+=[my_af]
