@@ -54,22 +54,22 @@ w0 =  2*np.pi*f0  #
 
 ripple = 0.5
 attenuation = 40
-order2analyze = 2
+order2analyze = 5
 
 fpass = f0 # 
 fstop = 0.6 # 
 
 
 # frecuencia de muestreo (solo será útil para el caso desnormalizado)
-fs = 100
+fs = 2
 # fs = 2*np.pi
 
 # Prewarp
 # la función bilinear de scipy espera la fs como parámetro de ajuste.
 # por eso le pasaremos fpw/2.
-fpw = 2*fs; # sin prewarp
+# fpw = 2*fs; # sin prewarp
 # prewarp para que se iguale la transferencia en módulo y fase para w0.
-#fpw = w0/np.tan(w0/2/fs); 
+fpw = w0/np.tan(w0/2/fs); 
 
 
 
@@ -88,7 +88,7 @@ if aprox_name == 'Butterworth':
     z,p,k = sig.buttap(order2analyze)
 
     # Desnormalizamos para cumplir con el ripple
-    #z, p, k = sig.lp2lp_zpk(z, p, k, wo=w0*eps**(-1/order2analyze) )
+    z, p, k = sig.lp2lp_zpk(z, p, k, wo=w0*eps**(-1/order2analyze) )
 
 elif aprox_name == 'Chebyshev1':
 
@@ -138,7 +138,7 @@ npoints = 1000
 w_nyq = 2*np.pi*fs/2
 
 w, mag, _ = my_analog_filter.bode(npoints)
-plt.plot(w, mag, label=my_analog_filter_desc)
+plt.plot(w/w_nyq, mag, label=my_analog_filter_desc)
 
 w, mag, _ = my_digital_filter.bode(npoints)
 plt.plot(w/w_nyq, mag, label=my_digital_filter_desc)
@@ -150,7 +150,7 @@ plt.grid(which='both', axis='both')
 
 plt.gca().set_xlim([0, 2])
 
-#plot_plantilla(filter_type = filter_type , fpass = fpass, ripple = ripple , fstop = fstop, attenuation = attenuation, fs = fs)
+plot_plantilla(filter_type = filter_type , fpass = fpass, ripple = ripple , fstop = fstop, attenuation = attenuation, fs = fs)
 
 
 # otra alternativa para visualizar
