@@ -16,7 +16,7 @@ import math as m
 from pytc2.sistemas_lineales import pzmap, GroupDelay, bodePlot   #libreria de la catedra. en este caso importo diag. pol. y ceros, retardo y bode
 
 #Defino mi plantilla
-
+sig.bilinear(b, a)
 alp_MAX=1       #dB
 alp_min=30      #dB
     

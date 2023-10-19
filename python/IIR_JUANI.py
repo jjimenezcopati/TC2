@@ -32,16 +32,20 @@ my_af = tc2.TransferFunction(num,den)
 
 #Creo los sistemas digitales con diferentes fs
 for n in [30,50,100]:
+    #    Frecuencia de muestreo a partir de múltiplos de f0
+    fs= n * w0/2/np.pi
+    # La k que se usará para la aplicacion de la bilineal sobre el filtro analog
+    k_bilineal=fs*2    
     
-    fs= n * w0/2/np.pi#    Frecuencia de muestreo a partir de múltiplos de f0
-    k_bilineal=fs*2     # La k que se usará para la aplicacion de la bilineal sobre el filtro analog
+    #   w a la que quiero hacer prewarp de ser requerido
+    w_prew=w0        
+    # Nueva K bilineal que usaré si quiero hacer prewarp
+    k_bilineal=2*w_prew/(4*np.tan(w_prew/k_bilineal))
     
-    w_prew=w0        #   w a la que quiero hacer prewarp de ser requerido
-    k_bilineal=2*w_prew/(4*np.tan(w_prew/k_bilineal))# Nueva K bilineal que usaré si quiero hacer prewarp
-    
-    numz , denz = sig.bilinear(num, den, fs=k_bilineal) #La k solo la uso para esta conversión. No es mi nueva fs!!!
-    
-    my_df = sig.TransferFunction(numz,denz, dt = 1/fs)#Uso la fs original y que sigue rigiendo en mi sistema
+    #La k solo la uso para esta conversión. No es mi nueva fs!!!
+    numz , denz = sig.bilinear(num, den, fs=k_bilineal) 
+    #Uso la fs original y que sigue rigiendo en mi sistema
+    my_df = sig.TransferFunction(numz,denz, dt = 1/fs)
     allsys+=[my_df]
     descripciones+=['Fs = W0 * %d'% n]
     

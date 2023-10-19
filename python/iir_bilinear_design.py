@@ -88,6 +88,7 @@ if aprox_name == 'Butterworth':
     z,p,k = sig.buttap(order2analyze)
 
     # Desnormalizamos para cumplir con el ripple
+    #Desplazo los -0.5 del ripple pedido hacia una nueva wo, normalizada en funcion de nyquist (J)
     z, p, k = sig.lp2lp_zpk(z, p, k, wo=w0*eps**(-1/order2analyze) )
 
 elif aprox_name == 'Chebyshev1':
